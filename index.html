@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE AI Percentile Predictor</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: #0a0a0a;
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Animated AI-inspired Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.3) 10%, transparent 80%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.3) 15%, transparent 85%),
+                        radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.2) 20%, transparent 90%);
+            background-blend-mode: screen;
+            opacity: 0.9;
+            z-index: -1;
+            animation: animateBackground 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes animateBackground {
+            0% {
+                transform: scale(1) translateX(0px) translateY(0px);
+            }
+            100% {
+                transform: scale(1.1) translateX(-20px) translateY(20px);
+            }
+        }
+
+        /* Floating Animated Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .particles span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: floatParticles 6s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        
+        @keyframes floatParticles {
+            0% {
+                transform: translateY(0px);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-30px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0px);
+                opacity: 0.8;
+            }
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 255, 255, 0.7);
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        input {
+            width: 60%;
+            max-width: 400px;
+            padding: 15px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 2.5s ease-in-out;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        button {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            animation: fadeIn 3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 255, 255, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 8px 20px rgba(0, 255, 255, 0.5);
+        }
+        #result {
+            margin-top: 30px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.3);
+            animation: fadeIn 3.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <span style="top: 10%; left: 15%;"></span>
+        <span style="top: 30%; left: 50%;"></span>
+        <span style="top: 50%; left: 80%;"></span>
+        <span style="top: 70%; left: 20%;"></span>
+        <span style="top: 90%; left: 60%;"></span>
+    </div>
+    <h2><span style="font-size: 2.5rem;">🤖</span> AI-Powered JEE Percentile Predictor</h2>
+    <input type="number" id="marksInput" min="0" max="300" placeholder="Enter your marks (0-300)...">
+    <button onclick="predictPercentile()">Predict My Percentile</button>
+    <p id="result"></p>
+</body>
+</html>
+
+    <script>
+        const percentileData = [
+            { range: [281, 300], percentile: "100 - 99.99989145" },
+            { range: [271, 280], percentile: "99.994681 - 99.997394" },
+            { range: [263, 270], percentile: "99.990990 - 99.994029" },
+            { range: [250, 262], percentile: "99.977205 - 99.988819" },
+            { range: [241, 250], percentile: "99.960163 - 99.975034" },
+            { range: [231, 240], percentile: "99.934980 - 99.956364" },
+            { range: [221, 230], percentile: "99.901113 - 99.928901" },
+            { range: [211, 220], percentile: "99.851616 - 99.893732" },
+            { range: [201, 210], percentile: "99.795063 - 99.845212" },
+            { range: [191, 200], percentile: "99.710831 - 99.782472" },
+            { range: [181, 190], percentile: "99.597399 - 99.688579" },
+            { range: [171, 180], percentile: "99.456939 - 99.573193" },
+            { range: [161, 170], percentile: "99.272084 - 99.431214" },
+            { range: [151, 160], percentile: "99.028614 - 99.239737" },
+            { range: [141, 150], percentile: "98.732734 - 98.990296" },
+            { range: [131, 140], percentile: "98.317414 - 98.666935" },
+            { range: [121, 130], percentile: "97.806746 - 98.278697" },
+            { range: [111, 120], percentile: "97.142937 - 97.685672" },
+            { range: [101, 110], percentile: "96.204550 - 96.945196" },
+            { range: [91, 100], percentile: "94.998594 - 95.978270" },
+            { range: [81, 90], percentile: "93.471231 - 94.889021" },
+            { range: [71, 80], percentile: "91.664041 - 93.214364" },
+            { range: [61, 70], percentile: "89.223612 - 91.180480" },
+            { range: [51, 60], percentile: "85.928670 - 88.850036" },
+            { range: [41, 50], percentile: "81.194840 - 85.450890" },
+            { range: [31, 40], percentile: "74.281729 - 80.207451" }
+        ];
+
+        function predictPercentile() {
+            const marks = parseInt(document.getElementById("marksInput").value);
+            let resultText = "Percentile not found";
+            if (!isNaN(marks) && marks >= 0 && marks <= 300) {
+                for (let data of percentileData) {
+                    if (marks >= data.range[0] && marks <= data.range[1]) {
+                        resultText = `Predicted Percentile: ${data.percentile}`;
+                        break;
+                    }
+                }
+            }
+            document.getElementById("result").innerText = resultText;
+        }
+    </script>
+</body>
+</html>
